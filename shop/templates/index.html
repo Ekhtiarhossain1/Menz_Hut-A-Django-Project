@@ -31,11 +31,11 @@
 <section class="category-section">
     <div class="category-header">
         <h2>CASUAL SHIRT</h2>
-        <a href="#" class="see-more">See More</a>
+        <a href="{% url 'category' 'CASUAL SHIRT' %}" class="see-more">See More</a>
     </div>
     <div class="product-grid">
         <!-- Repeat 6 products per category -->
-        {% for product in casual_shirts %}
+        {% for product in CASUAL_SHIRT %}
         <a href="{% url 'product_detail' product.id %}" class="product-card">
             <img src="{{ product.image.url }}" alt="{{ product.name }}">
             <p>{{ product.name }}</p>
@@ -58,12 +58,78 @@
 
 <section class="category-section">
     <div class="category-header">
+        <h2>T-SHIRT</h2>
+        <a href="{% url 'category' 'T-SHIRT' %}" class="see-more">See More</a>
+    </div>
+    <div class="product-grid">
+        {% for product in T_SHIRT %}
+        <a href="{% url 'product_detail' product.id %}" class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <p>{{ product.name }}</p>
+            <div class="price-info">
+                <span class="base-price">${{ product.base_price }}</span>
+                {% if product.discount_percentage %}
+                <span class="discount">-{{ product.discount_percentage }}%</span>
+                {% endif %}
+            </div>
+            <p class="final-price">${{ product.final_price }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="category-section">
+    <div class="category-header">
+        <h2>KORTI</h2>
+        <a href="{% url 'category' 'KORTI' %}" class="see-more">See More</a>
+    </div>
+    <div class="product-grid">
+        {% for product in KORTI %}
+        <a href="{% url 'product_detail' product.id %}" class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <p>{{ product.name }}</p>
+            <div class="price-info">
+                <span class="base-price">${{ product.base_price }}</span>
+                {% if product.discount_percentage %}
+                <span class="discount">-{{ product.discount_percentage }}%</span>
+                {% endif %}
+            </div>
+            <p class="final-price">${{ product.final_price }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="category-section">
+    <div class="category-header">
+        <h2>PANJABI</h2>
+        <a href="{% url 'category' 'PANJABI' %}" class="see-more">See More</a>
+    </div>
+    <div class="product-grid">
+        {% for product in PANJABI %}
+        <a href="{% url 'product_detail' product.id %}" class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <p>{{ product.name }}</p>
+            <div class="price-info">
+                <span class="base-price">${{ product.base_price }}</span>
+                {% if product.discount_percentage %}
+                <span class="discount">-{{ product.discount_percentage }}%</span>
+                {% endif %}
+            </div>
+            <p class="final-price">${{ product.final_price }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="category-section">
+    <div class="category-header">
         <h2>PANT</h2>
-        <a href="#" class="see-more">See More</a>
+        <a href="{% url 'category' 'PANT' %}" class="see-more">See More</a>
     </div>
     <div class="product-grid">
 
-        {% for product in pants %}
+        {% for product in PANT %}
         <a href="{% url 'product_detail' product.id %}" class="product-card">
             <img src="{{ product.image.url }}" alt="{{ product.name }}">
             <p>{{ product.name }}</p>

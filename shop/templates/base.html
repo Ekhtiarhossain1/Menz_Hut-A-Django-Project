@@ -21,7 +21,7 @@
     <!-- Middle Bar -->
     <div class="middle-bar">
         <div class="left-section">
-            <a href="#">Contact Us</a>
+            <a href="{% url 'contact' %}">Contact Us</a>
             <a href="#">Download App</a>
         </div>
         <div class="logo">
@@ -38,13 +38,13 @@
     <nav class="nav-bar">
         <ul>
             <li><a href="{% url 'category' 'SALE' %}" class="sale">SALE!</a></li>
-            <li><a href="{% url 'category' 'SUMMER' %}">SUMMER</a></li>
-            <li><a href="{% url 'category' 'CASUAL SHIRT' %}">CASUAL SHIRT</a></li>
-            <li><a href="{% url 'category' 'FORMAL SHIRT' %}">FORMAL SHIRT</a></li>
-            <li><a href="{% url 'category' 'T-SHIRT' %}">T-SHIRT</a></li>
-            <li><a href="{% url 'category' 'KORTI' %}">KORTI</a></li>
-            <li><a href="{% url 'category' 'PANJABI' %}">PANJABI</a></li>
-            <li><a href="{% url 'category' 'PANT' %}">PANTS</a></li>
+            <li><a href="{% url 'category' 'SUMMER' %}" class="{% if current_category == 'SUMMER' %}active{% endif %}">SUMMER</a></li>
+            <li><a href="{% url 'category' 'CASUAL SHIRT' %}" class="{% if current_category == 'CASUAL SHIRT' %}active{% endif %}">CASUAL SHIRT</a></li>
+            <li><a href="{% url 'category' 'FORMAL SHIRT' %}" class="{% if current_category == 'FORMAL SHIRT' %}active{% endif %}">FORMAL SHIRT</a></li>
+            <li><a href="{% url 'category' 'T-SHIRT' %}" class="{% if current_category == 'T-SHIRT' %}active{% endif %}">T-SHIRT</a></li>
+            <li><a href="{% url 'category' 'KORTI' %}" class="{% if current_category == 'KORTI' %}active{% endif %}">KORTI</a></li>
+            <li><a href="{% url 'category' 'PANJABI' %}" class="{% if current_category == 'PANJABI' %}active{% endif %}">PANJABI</a></li>
+            <li><a href="{% url 'category' 'PANT' %}" class="{% if current_category == 'PANT' %}active{% endif %}">PANTS</a></li>
         </ul>
     </nav>
 

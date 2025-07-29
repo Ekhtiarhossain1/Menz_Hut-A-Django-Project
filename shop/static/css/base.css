@@ -6,10 +6,12 @@ body {
 }
 
 .top-bar {
+    /* height: 40px; */
     background-color: #e60000;
     color: white;
+    /* align-content: center; */
     text-align: center;
-    padding: 8px 0;
+    padding: 0.1px 0;
     font-weight: bold;
 }
 
@@ -81,4 +83,12 @@ body {
 
 .nav-bar ul li a.sale {
     color: red;
+}
+
+.nav-bar ul li a.active {
+    color: #fff;
+    background: #e60000;
+    border-radius: 4px;
+    padding: 4px 12px;
+    transition: background 0.2s, color 0.2s;
 }

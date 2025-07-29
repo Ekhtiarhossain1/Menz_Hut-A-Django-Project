@@ -11,14 +11,17 @@ def home(request):
     PANJABI = Product.objects.filter(category__name='PANJABI')[:6]
     PANT = Product.objects.filter(category__name='PANT')[:6]  
     hot_products = Product.objects.filter(is_hot=True)[:5] 
-    return render(request, 'index.html', {'SUMMER': SUMMER,'casual_shirts': CASUAL_SHIRT, 
+    return render(request, 'index.html', {'SUMMER': SUMMER,'CASUAL_SHIRT': CASUAL_SHIRT, 
                                           'FORMAL_SHIRT': FORMAL_SHIRT, 'T_SHIRT':T_SHIRT, 
-                                          'KORTI':KORTI, 'PANJABI':PANJABI ,'pants': PANT, 
+                                          'KORTI':KORTI, 'PANJABI':PANJABI ,'PANT': PANT, 
                                           'hot_products': hot_products,
                                           })
 
 def about(request):
     return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
@@ -28,4 +31,8 @@ def product_detail(request, product_id):
 def category_view(request, category_name):
     category = get_object_or_404(Category, name__iexact=category_name)
     products = Product.objects.filter(category=category)
-    return render(request, 'category.html', {'category': category, 'products': products})
+    return render(request, 'category.html', {
+        'category': category,
+        'products': products,
+        'current_category': category.name,
+    })
