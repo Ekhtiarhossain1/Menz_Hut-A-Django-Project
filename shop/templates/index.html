@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - Menz Hut{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hot Products Slider -->
+<section class="hot-products">
+    <button class="arrow left" onclick="changeSlide(-1)">&#10094;</button>
+
+    <div class="product-display">
+        {% for product in hot_products %}
+        <div href="{% url 'product_detail' product.id %}" class="slide">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <div class="product-info">
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <button class="arrow right" onclick="changeSlide(1)">&#10095;</button>
+</section>
+
+<!-- Demo Product Categories -->
+<section class="category-section">
+    <div class="category-header">
+        <h2>Casual Shirts</h2>
+        <a href="#" class="see-more">See More</a>
+    </div>
+    <div class="product-grid">
+        <!-- Repeat 6 products per category -->
+        {% for product in casual_shirts %}
+        <a href="{% url 'product_detail' product.id %}" class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <p>{{ product.name }}</p>
+
+            <div class="price-info">
+                <span class="base-price">${{ product.base_price }}</span>
+                {% if product.discount_percentage %}
+                <span class="discount">-{{ product.discount_percentage }}%</span>
+                {% endif %}
+            </div>
+
+            <p class="final-price">${{ product.final_price }}</p>
+        </a>
+
+        {% endfor %}
+
+        <!-- Add more product-card blocks here -->
+    </div>
+</section>
+
+<section class="category-section">
+    <div class="category-header">
+        <h2>Pants</h2>
+        <a href="#" class="see-more">See More</a>
+    </div>
+    <div class="product-grid">
+
+        {% for product in pants %}
+        <a href="{% url 'product_detail' product.id %}" class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <p>{{ product.name }}</p>
+
+            <div class="price-info">
+                <span class="base-price">${{ product.base_price }}</span>
+                {% if product.discount_percentage %}
+                <span class="discount">-{{ product.discount_percentage }}%</span>
+                {% endif %}
+            </div>
+
+            <p class="final-price">${{ product.final_price }}</p>
+        </a>
+
+        {% endfor %}
+
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    // Hide all slides first
+    slides.forEach(slide => slide.style.display = 'none');
+
+    // Show the first slide
+    if (slides.length > 0) {
+        slides[0].style.display = 'block';
+    }
+
+    function changeSlide(direction) {
+        slides[currentSlide].style.display = 'none';
+        currentSlide = (currentSlide + direction + slides.length) % slides.length;
+        slides[currentSlide].style.display = 'block';
+    }
+</script>
+
+{% endblock %}

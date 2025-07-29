@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Menz Hut{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    {% block css %} {% endblock %}
+    
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <p><strong>FLAT 50% OFF</strong> &nbsp; Hurry, Limited Time Offer!</p>
+    </div>
+
+    <!-- Middle Bar -->
+    <div class="middle-bar">
+        <div class="left-section">
+            <a href="#">Contact Us</a>
+            <a href="#">Download App</a>
+        </div>
+        <div class="logo">
+            <h1>Menz Hut</h1>
+        </div>
+        <div class="right-section">
+            <a href="#">Log In / Sign Up</a>
+            <a href="#">Find Store</a>
+            <a href="#" class="cart-icon">🛒<span>0</span></a>
+        </div>
+    </div>
+
+    <!-- Nav Bar (Always visible on every page) -->
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="#" class="sale">SALE!</a></li>
+            <li><a href="#">SUMMER</a></li>
+            <li><a href="#">CASUAL SHIRT</a></li>
+            <li><a href="#">FORMAL SHIRT</a></li>
+            <li><a href="#">T-SHIRT</a></li>
+            <li><a href="#">KORTI</a></li>
+            <li><a href="#">PANJABI</a></li>
+            <li><a href="#">PANTS</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page-specific content will be injected here -->
+    {% block content %}{% endblock %}
+
+    {% block script %}{% endblock %}
+</body>
+</html>
