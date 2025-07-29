@@ -22,6 +22,11 @@ body {
     flex-wrap: wrap;
 }
 
+/* a.logo {
+    color: inherit; 
+    text-decoration: none;
+} */
+
 .middle-bar .left-section a,
 .middle-bar .right-section a {
     margin: 0 10px;

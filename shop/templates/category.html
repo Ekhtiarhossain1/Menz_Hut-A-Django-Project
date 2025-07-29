@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ category.name }} - Menz Hut{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="category-section">
+    <div class="category-header">
+        <h2>{{ category.name }}</h2>
+    </div>
+    <div class="product-grid">
+        {% for product in products %}
+        <a href="{% url 'product_detail' product.id %}" class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <div class="price-info">
+                {% if product.discount_percentage and product.discount_percentage > 0 %}
+                    <span class="base-price">{{ product.base_price }}</span>
+                    <span class="discount">{{ product.discount_percentage }}% OFF</span>
+                    <span class="final-price">{{ product.final_price }}</span>
+                {% else %}
+                    <span class="final-price">{{ product.base_price }}</span>
+                {% endif %}
+            </div>
+        </a>
+        {% empty %}
+        <p>No products found in this category.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

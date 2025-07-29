@@ -25,7 +25,7 @@
             <a href="#">Download App</a>
         </div>
         <div class="logo">
-            <h1>Menz Hut</h1>
+            <h1><a href="{% url 'home' %}" style="color: inherit; text-decoration: none;">Menz Hut</a></h1>
         </div>
         <div class="right-section">
             <a href="#">Log In / Sign Up</a>
@@ -37,14 +37,14 @@
     <!-- Nav Bar (Always visible on every page) -->
     <nav class="nav-bar">
         <ul>
-            <li><a href="#" class="sale">SALE!</a></li>
-            <li><a href="#">SUMMER</a></li>
-            <li><a href="#">CASUAL SHIRT</a></li>
-            <li><a href="#">FORMAL SHIRT</a></li>
-            <li><a href="#">T-SHIRT</a></li>
-            <li><a href="#">KORTI</a></li>
-            <li><a href="#">PANJABI</a></li>
-            <li><a href="#">PANTS</a></li>
+            <li><a href="{% url 'category' 'SALE' %}" class="sale">SALE!</a></li>
+            <li><a href="{% url 'category' 'SUMMER' %}">SUMMER</a></li>
+            <li><a href="{% url 'category' 'CASUAL SHIRT' %}">CASUAL SHIRT</a></li>
+            <li><a href="{% url 'category' 'FORMAL SHIRT' %}">FORMAL SHIRT</a></li>
+            <li><a href="{% url 'category' 'T-SHIRT' %}">T-SHIRT</a></li>
+            <li><a href="{% url 'category' 'KORTI' %}">KORTI</a></li>
+            <li><a href="{% url 'category' 'PANJABI' %}">PANJABI</a></li>
+            <li><a href="{% url 'category' 'PANT' %}">PANTS</a></li>
         </ul>
     </nav>
 
