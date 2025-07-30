@@ -27,7 +27,6 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     return render(request, 'product_detail.html', {'product': product})
 
-
 def category_view(request, category_name):
     category = get_object_or_404(Category, name__iexact=category_name)
     products = Product.objects.filter(category=category)
