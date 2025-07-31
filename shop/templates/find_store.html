@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Find Store - Menz Hut{% endblock %}
+
+{% block css %}
+<style>
+    .store-card {
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .modal-overlay {
+        transition: opacity 0.3s ease;
+    }
+    .modal-container {
+        transition: transform 0.3s ease;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+
+    <!-- Store Finder Section -->
+    <div id="store-finder" class="max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-xl shadow-lg">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Find a Store Near You</h1>
+            <p class="mt-2 text-gray-500">Search for stores in Dhaka, Chittagong, and Sylhet.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 mb-8">
+            <input type="text" id="location-search" placeholder="Enter a city or area (e.g., Gulshan, Dhanmondi)"
+                class="flex-grow w-full px-4 py-3 text-gray-700 bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+            <button id="search-btn"
+                class="w-full sm:w-auto bg-red-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Search</button>
+        </div>
+        <div>
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">Our Stores</h2>
+            <div id="store-list" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+            <div id="no-results" class="hidden text-center py-10 px-6 bg-gray-50 rounded-lg">
+                <p class="text-gray-600 font-medium">No stores found for your search.</p>
+                <p class="text-gray-500 text-sm mt-1">Please try a different location or check your spelling.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
+        <div class="modal-container bg-white w-full max-w-md rounded-lg shadow-xl transform scale-95">
+            <div class="flex justify-between items-center border-b p-4">
+                <h3 class="text-xl font-bold">Your Cart</h3>
+                <button id="close-cart-btn" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <div id="cart-items-container" class="p-4 max-h-96 overflow-y-auto">
+                <p class="text-gray-500 text-center">Your cart is empty.</p>
+            </div>
+            <div class="border-t p-4">
+                <div class="flex justify-between items-center font-bold text-lg">
+                    <span>Total</span>
+                    <span id="cart-total">৳0.00</span>
+                </div>
+                <button class="w-full bg-red-600 text-white font-semibold py-3 mt-4 rounded-lg hover:bg-red-700 transition-colors">Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- STORE DATA ---
+    const stores = [
+        { name: 'Gulshan Flagship Store', city: 'Dhaka', area: 'Gulshan', address: '123 Gulshan Avenue, Gulshan 1, Dhaka 1212', phone: '01712-345678', hours: '10 AM - 9 PM' },
+        { name: 'Dhanmondi Lifestyle', city: 'Dhaka', area: 'Dhanmondi', address: '456 Satmasjid Road, Dhanmondi, Dhaka 1209', phone: '01812-345679', hours: '11 AM - 10 PM' },
+        { name: 'GEC Circle Branch', city: 'Chittagong', area: 'GEC Circle', address: '101 GEC More, CDA Avenue, Chittagong 4000', phone: '01612-345681', hours: '10 AM - 9 PM' },
+        { name: 'Zindabazar Point', city: 'Sylhet', area: 'Zindabazar', address: '333 Zindabazar Main Rd, Sylhet 3100', phone: '01312-345683', hours: '10 AM - 9 PM' }
+    ];
+
+    const searchBtn = document.getElementById('search-btn');
+    const searchInput = document.getElementById('location-search');
+    const storeList = document.getElementById('store-list');
+    const noResultsMessage = document.getElementById('no-results');
+
+    function createStoreCard(store) {
+        return `
+            <div class="store-card bg-white border border-gray-200 rounded-lg p-5 transition-shadow hover:shadow-md">
+                <h3 class="text-lg font-bold text-red-600">${store.name}</h3>
+                <p class="text-gray-700 mt-2">${store.address}</p>
+                <div class="text-sm text-gray-500 mt-3">
+                    <p><strong>Phone:</strong> ${store.phone}</p>
+                    <p><strong>Hours:</strong> ${store.hours}</p>
+                </div>
+                <a href="https://www.google.com/maps?q=${encodeURIComponent(store.address)}" target="_blank" class="inline-block mt-4 text-red-600 font-semibold hover:underline">
+                    Get Directions &rarr;
+                </a>
+            </div>
+        `;
+    }
+
+    function renderStores(storesToDisplay) {
+        storeList.innerHTML = '';
+        if (storesToDisplay.length === 0) {
+            noResultsMessage.classList.remove('hidden');
+        } else {
+            noResultsMessage.classList.add('hidden');
+            storesToDisplay.forEach(store => {
+                storeList.innerHTML += createStoreCard(store);
+            });
+        }
+    }
+
+    function handleSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        if (query === '') {
+            renderStores(stores);
+            return;
+        }
+        const filteredStores = stores.filter(store =>
+            store.city.toLowerCase().includes(query) ||
+            store.area.toLowerCase().includes(query)
+        );
+        renderStores(filteredStores);
+    }
+
+    window.addEventListener('load', () => {
+        renderStores(stores);
+    });
+
+    searchBtn.addEventListener('click', handleSearch);
+    searchInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
+    });
+
+    // --- CART (Basic placeholder) ---
+    const cartModal = document.getElementById('cart-modal');
+    const closeCartBtn = document.getElementById('close-cart-btn');
+
+    closeCartBtn.addEventListener('click', () => {
+        cartModal.classList.add('hidden');
+    });
+</script>
+{% endblock %}

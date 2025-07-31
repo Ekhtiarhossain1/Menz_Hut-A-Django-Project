@@ -20,6 +20,12 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+def store(request):
+    return render(request, 'store.html')
+
+def find_store(request):
+    return render(request, 'find_store.html')
+
 def contact(request):
     return render(request, 'contact.html')
 

@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,17 +14,17 @@
 
     <!------------- CSS for Footer ----------->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome for social icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     {% block css %} {% endblock %}
-    
+
 </head>
 
 <body>
@@ -43,8 +44,20 @@
         </div>
         <div class="right-section">
             <a href="#">Log In / Sign Up</a>
-            <a href="#">Find Store</a>
-            <a href="#" class="cart-icon">🛒<span>0</span></a>
+            <a href="{% url 'find_store' %}">Find Store</a>
+
+            <!-- Shopping Cart Icon/Button -->
+            <button id="cart-button" class="flex items-center hover:text-red-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span id="cart-count"
+                    class="ml-2 bg-gray-800 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            </button>
+            <!-- Cart Button end -->
+
         </div>
     </div>
 
@@ -52,13 +65,20 @@
     <nav class="nav-bar">
         <ul>
             <li><a href="{% url 'category' 'SALE' %}" class="sale">SALE!</a></li>
-            <li><a href="{% url 'category' 'SUMMER' %}" class="{% if current_category == 'SUMMER' %}active{% endif %}">SUMMER</a></li>
-            <li><a href="{% url 'category' 'CASUAL SHIRT' %}" class="{% if current_category == 'CASUAL SHIRT' %}active{% endif %}">CASUAL SHIRT</a></li>
-            <li><a href="{% url 'category' 'FORMAL SHIRT' %}" class="{% if current_category == 'FORMAL SHIRT' %}active{% endif %}">FORMAL SHIRT</a></li>
-            <li><a href="{% url 'category' 'T-SHIRT' %}" class="{% if current_category == 'T-SHIRT' %}active{% endif %}">T-SHIRT</a></li>
-            <li><a href="{% url 'category' 'KORTI' %}" class="{% if current_category == 'KORTI' %}active{% endif %}">KORTI</a></li>
-            <li><a href="{% url 'category' 'PANJABI' %}" class="{% if current_category == 'PANJABI' %}active{% endif %}">PANJABI</a></li>
-            <li><a href="{% url 'category' 'PANT' %}" class="{% if current_category == 'PANT' %}active{% endif %}">PANTS</a></li>
+            <li><a href="{% url 'category' 'SUMMER' %}"
+                    class="{% if current_category == 'SUMMER' %}active{% endif %}">SUMMER</a></li>
+            <li><a href="{% url 'category' 'CASUAL SHIRT' %}"
+                    class="{% if current_category == 'CASUAL SHIRT' %}active{% endif %}">CASUAL SHIRT</a></li>
+            <li><a href="{% url 'category' 'FORMAL SHIRT' %}"
+                    class="{% if current_category == 'FORMAL SHIRT' %}active{% endif %}">FORMAL SHIRT</a></li>
+            <li><a href="{% url 'category' 'T-SHIRT' %}"
+                    class="{% if current_category == 'T-SHIRT' %}active{% endif %}">T-SHIRT</a></li>
+            <li><a href="{% url 'category' 'KORTI' %}"
+                    class="{% if current_category == 'KORTI' %}active{% endif %}">KORTI</a></li>
+            <li><a href="{% url 'category' 'PANJABI' %}"
+                    class="{% if current_category == 'PANJABI' %}active{% endif %}">PANJABI</a></li>
+            <li><a href="{% url 'category' 'PANT' %}"
+                    class="{% if current_category == 'PANT' %}active{% endif %}">PANTS</a></li>
         </ul>
     </nav>
 
@@ -70,22 +90,27 @@
     <!-- ================== FOOTER START ================== -->
     <footer class="bg-gray-800 text-gray-300">
         <div class="container mx-auto px-6 pl-60 py-12">
-            
+
             <!-- Footer Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
+
                 <!-- Column 1: About the Brand -->
                 <div class="col-span-1">
                     <h3 class="text-xl font-bold text-white mb-4">Menz Hut</h3>
                     <p class="text-gray-400 mb-4">
-                        Styled Right. We provide the best quality apparel for men, blending modern styles with timeless comfort.
+                        Styled Right. We provide the best quality apparel for men, blending modern styles with timeless
+                        comfort.
                     </p>
                     <!-- Social Media Icons -->
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook-f fa-lg"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-instagram fa-lg"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i
+                                class="fab fa-facebook-f fa-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i
+                                class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i
+                                class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i
+                                class="fab fa-linkedin-in fa-lg"></i></a>
                     </div>
                 </div>
 
@@ -124,5 +149,129 @@
     </footer>
     <!-- ================== FOOTER END ================== -->
 
+
+
+
+    <!-- ================ Shopping Cart Modal =================== -->
+    <div id="cart-modal"
+        class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
+        <div class="modal-container bg-white w-full max-w-md rounded-lg shadow-xl transform scale-95">
+            <div class="flex justify-between items-center border-b p-4">
+                <h3 class="text-xl font-bold">Your Cart</h3>
+                <button id="close-cart-btn" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <div id="cart-items-container" class="p-4 max-h-96 overflow-y-auto">
+                <p class="text-gray-500 text-center">Your cart is empty.</p>
+            </div>
+            <div class="border-t p-4">
+                <div class="flex justify-between items-center font-bold text-lg">
+                    <span>Total</span>
+                    <span id="cart-total">৳0.00</span>
+                </div>
+                <button
+                    class="w-full bg-red-600 text-white font-semibold py-3 mt-4 rounded-lg hover:bg-red-700 transition-colors">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =============== JavaScript for Cart Functionality =================== -->
+    <script>
+        let cartItems = [];
+
+        // Load cart from localStorage on page load
+        function loadCart() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cartItems = JSON.parse(savedCart);
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+        }
+
+        const cartButton = document.getElementById('cart-button');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartBtn = document.getElementById('close-cart-btn');
+        const cartCount = document.getElementById('cart-count');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartTotal = document.getElementById('cart-total');
+
+        function addToCart(product) {
+            const existingItem = cartItems.find(item => item.id === product.id);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cartItems.push({ ...product, quantity: 1 });
+            }
+            saveCart();  // Save after update
+            updateCart();
+        }
+
+        function removeFromCart(productId) {
+            cartItems = cartItems.filter(item => item.id !== productId);
+            saveCart();  // Save after update
+            updateCart();
+        }
+
+        function updateCart() {
+            cartItemsContainer.innerHTML = '';
+            if (cartItems.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center">Your cart is empty.</p>';
+            } else {
+                cartItems.forEach(item => {
+                    const itemHTML = `
+                <div class="flex items-center justify-between py-2 border-b last:border-b-0">
+                    <div class="flex items-center gap-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md">
+                        <div>
+                            <p class="font-semibold">${item.name}</p>
+                            <p class="text-sm text-gray-600">৳${item.price.toLocaleString()} x ${item.quantity}</p>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 font-semibold">Remove</button>
+                </div>
+            `;
+                    cartItemsContainer.innerHTML += itemHTML;
+                });
+            }
+
+            const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `৳${totalPrice.toLocaleString()}`;
+        }
+
+        function toggleCartModal() {
+            const isHidden = cartModal.classList.contains('hidden');
+            if (isHidden) {
+                cartModal.classList.remove('hidden');
+                setTimeout(() => {
+                    cartModal.classList.remove('opacity-0');
+                    cartModal.querySelector('.modal-container').classList.remove('scale-95');
+                }, 10);
+            } else {
+                cartModal.classList.add('opacity-0');
+                cartModal.querySelector('.modal-container').classList.add('scale-95');
+                setTimeout(() => cartModal.classList.add('hidden'), 300);
+            }
+        }
+
+        // Load cart on page load and update UI
+        loadCart();
+        updateCart();
+
+        cartButton.addEventListener('click', toggleCartModal);
+        closeCartBtn.addEventListener('click', toggleCartModal);
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) toggleCartModal();
+        });
+
+    </script>
+    <!-- ================== End of Shopping Cart Modal ================== -->
+
 </body>
+
 </html>

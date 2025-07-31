@@ -4,18 +4,18 @@
 {% block title %}{{ product.name }} - Menz Hut{% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="product-detail">
     <img src="{{ product.image.url }}" alt="{{ product.name }}" class="large-image">
-    
+
     <div class="details">
         <h1>{{ product.name }}</h1>
         <p>{{ product.description }}</p>
         <p class="final-price">Price: ${{ product.final_price }}</p>
-        
+
         <form method="post" action="#">
             <!-- {% csrf_token %} -->
             <label for="size">Size:</label>
@@ -30,9 +30,34 @@
             <label for="quantity">Quantity:</label>
             <input type="number" name="quantity" id="quantity" value="1" min="1" required>
 
-            <button type="submit">Add to Cart</button>
+            <button type="button" id="add-to-cart-btn" class="add-to-cart">Add to Cart</button>
             <a href="#" class="order-now">Order Now</a>
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addBtn = document.getElementById('add-to-cart-btn');
+
+        if (addBtn) {
+            addBtn.addEventListener('click', function () {
+                const cartProduct = {
+                    id: "{{ product.id|escapejs }}",
+                    name: "{{ product.name|escapejs }}",
+                    price: parseFloat("{{ product.final_price|escapejs }}"),
+                    image: "{{ product.image.url|escapejs }}"
+                };
+
+                const quantity = parseInt(document.getElementById('quantity').value);
+
+                for (let i = 0; i < quantity; i++) {
+                    addToCart(cartProduct); // Function from base.html
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}
