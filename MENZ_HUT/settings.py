@@ -1,3 +1,5 @@
+# Cart session key
+CART_SESSION_ID = 'cart'
 """
 Django settings for MENZ_HUT project.
 
@@ -79,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'menz_hut',
         'USER': 'postgres',
-        'PASSWORD': 'ek14',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
     }

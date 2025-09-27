@@ -16,8 +16,8 @@
         <p>{{ product.description }}</p>
         <p class="final-price">Price: ${{ product.final_price }}</p>
 
-        <form method="post" action="#">
-            <!-- {% csrf_token %} -->
+        <form method="post" action="">
+            {% csrf_token %}
             <label for="size">Size:</label>
             <select name="size" id="size" required>
                 <option value="">-- Select --</option>
@@ -30,34 +30,13 @@
             <label for="quantity">Quantity:</label>
             <input type="number" name="quantity" id="quantity" value="1" min="1" required>
 
-            <button type="button" id="add-to-cart-btn" class="add-to-cart">Add to Cart</button>
-            <a href="#" class="order-now">Order Now</a>
+            <button type="submit" name="action" value="add_to_cart" class="add-to-cart">Add to Cart</button>
+            <button type="submit" name="action" value="order_now" class="order-now">Order Now</button>
         </form>
     </div>
 </div>
 {% endblock %}
 
 {% block script %}
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const addBtn = document.getElementById('add-to-cart-btn');
-
-        if (addBtn) {
-            addBtn.addEventListener('click', function () {
-                const cartProduct = {
-                    id: "{{ product.id|escapejs }}",
-                    name: "{{ product.name|escapejs }}",
-                    price: parseFloat("{{ product.final_price|escapejs }}"),
-                    image: "{{ product.image.url|escapejs }}"
-                };
-
-                const quantity = parseInt(document.getElementById('quantity').value);
-
-                for (let i = 0; i < quantity; i++) {
-                    addToCart(cartProduct); // Function from base.html
-                }
-            });
-        }
-    });
-</script>
+<!-- No custom JS needed, handled by backend form POST -->
 {% endblock %}

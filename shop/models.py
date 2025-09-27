@@ -1,3 +1,19 @@
+import hashlib
+from django.db import models
+
+class Customer(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    password = models.CharField(max_length=64)  # SHA-256 hash
+    address = models.TextField()
+
+    def set_password(self, raw_password):
+        self.password = hashlib.sha256(raw_password.encode()).hexdigest()
+
+    def check_password(self, raw_password):
+        return self.password == hashlib.sha256(raw_password.encode()).hexdigest()
+
+    def __str__(self):
+        return self.username
 from django.db import models
 
 class Category(models.Model):
